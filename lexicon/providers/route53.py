@@ -135,7 +135,7 @@ class Provider(BaseProvider):
                             'ResourceRecordSet': {
                                 'Name': self._fqdn_name(name),
                                 'Type': type,
-                                'TTL': ttl if ttl is not None else 300,
+                                'TTL': ttl if ttl is not None else 30,
                                 'ResourceRecords': [
                                     {
                                         'Value': value
@@ -152,7 +152,7 @@ class Provider(BaseProvider):
 
     def create_record(self, type, name, content):
         """Create a record in the hosted zone."""
-        return self._change_record_sets('CREATE', type, name, content)
+        return self._change_record_sets('UPSERT', type, name, content)
 
     def update_record(self, identifier=None, type=None, name=None, content=None):
         """Update a record from the hosted zone."""
